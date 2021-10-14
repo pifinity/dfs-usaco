@@ -1,0 +1,62 @@
+import java.util.*;
+
+class dfs1 {
+
+    static int [] a=new int[10];
+    static boolean[] flag=new boolean [10]; //false表示没用过
+    static int n;
+
+    public static void main(String[] args) {
+        n=6;
+        a[1] =1;
+        a[n+1] =1;
+        dfs(2);
+
+    }
+
+    static void print()
+    {
+        System.out.println(Arrays.toString(a));
+        for(int i=1;i<=n;i++)
+        {
+            System.out.print(a[i]+" ");
+        }
+        System.out.println();
+    }
+
+    static boolean isPrime(int input){
+        for (int i=2; i<=Math.sqrt(input); i++){
+            if (input%i==0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static void dfs(int pos)
+    {
+        //end condition
+        if (pos==n+1) {
+            boolean prime = true;
+            for (int i=1; i<=n; i++){
+                if (!isPrime(a[i]+a[i+1])) prime = false;
+            }
+            if (prime) {
+                print();
+            }
+            return;
+        }
+        //find next
+
+        for (int i=2; i<=n; i++){
+            if (!flag[i]){
+                a[pos] =i;
+                flag[i] = true;
+                dfs(pos+1);
+                flag[i] = false;
+            }
+        }
+
+
+    }
+}
