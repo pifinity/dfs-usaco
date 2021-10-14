@@ -1,0 +1,67 @@
+import java.io.*;
+import java.util.*;
+
+public class Convention {
+
+    static boolean check(int min){
+        int start = cows[0];
+        int buses = 1;
+        int currCount =0;
+
+        for (int i=0; i<N; i++){
+            if (cows[i]-start>min|| currCount>=C){
+                buses++;
+                start = cows[i];
+                currCount = 0;
+            }
+            currCount++;
+        }
+
+        return buses<=M;
+    }
+
+    static int N;
+    static int M;
+    static int C;
+    static int[] cows;
+    public static void main(String[] args) throws IOException{
+        BufferedReader bf = new BufferedReader(new FileReader("convention.in"));
+        PrintWriter out = new PrintWriter("convention.out");
+
+        StringTokenizer st = new StringTokenizer(bf.readLine());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        C = Integer.parseInt(st.nextToken());
+
+        cows = new int[N];
+
+        st = new StringTokenizer(bf.readLine());
+
+
+        for (int i =0;  i <N; i++){
+            cows[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(cows);
+
+        int lo = 0;
+        int high = cows[cows.length-1];
+
+        while (lo<=high){
+            int mid = (lo+high)/2;
+
+            if (check(mid)){
+                high = mid-1;
+            }else{
+                lo = mid+1;
+            }
+
+        }
+
+        out.println(lo);
+        out.close();
+
+
+
+        
+    }
+}
