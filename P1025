@@ -1,0 +1,21 @@
+import java.io.*;
+import java.util.*;
+
+public class P1025 {
+
+    static int dfs(int N, int K){
+        if (N<K) return 0;
+        if (K==1) return 1;
+        if (N==K) return 1;
+
+        return dfs(N-1, K-1)+dfs(N-K, K);
+    }
+
+    public static void main(String[] args) throws IOException{
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int K = sc.nextInt();
+
+        System.out.println(dfs(N, K));
+    }
+}
